@@ -1,3 +1,6 @@
+// get reference to the issue limit warning display element
+const limitWarningEl = document.getElementById("limit-warning");
+// fetch a list of issues with a given username/reponame
 const getRepoIssues = function (repo) {
   let apiUrl = `https://api.github.com/repos/${repo}/issues?direction=asc`;
   fetch(apiUrl).then(function (response) {
@@ -5,6 +8,10 @@ const getRepoIssues = function (repo) {
     if (response.ok) {
       response.json().then(function (data) {
         displayIssues(data);
+        // check if the api has paginated issues
+        if (response.headers.get("link")) {
+            displayWarning(repo);
+        }
       });
     } else {
       alert("There was a problem with your request!");
@@ -44,4 +51,16 @@ const displayIssues = function (issues) {
     issueContainerEl.appendChild(issuesEl);
   }
 };
-getRepoIssues("caseyderiso/Robot-Gladiators");
+
+// display warning if repo has more than 30 issues
+const displayWarning = function(repo) {
+    // add test to warning container
+    limitWarningEl.textContent = "To see more than 30 issues, visit ";
+    let linkEl = document.createElement("a");
+    linkEl.textContent = "This Repo on GitHub.";
+    linkEl.setAttribute("href", `https://github.com/${repo}/issues`);
+    linkEl.setAttribute("target", "_blank");
+    // append to warning container
+    limitWarningEl.appendChild(linkEl);
+}
+getRepoIssues("facebook/react");
