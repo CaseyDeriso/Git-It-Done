@@ -3,10 +3,19 @@ const limitWarningEl = document.getElementById("limit-warning");
 const repoNameEl = document.getElementById("repo-name");
 // get and format query string from https link
 const getRepoName = function () {
+  // grab repo name from url query string
   let queryString = document.location.search;
   let repoName = queryString.split("=")[1];
-  getRepoIssues(repoName);
-  repoNameEl.textContent = repoName;
+  // validate input before performing fetch
+  if (repoName) {
+    // display issues
+    getRepoIssues(repoName);
+    // display repo name
+    repoNameEl.textContent = repoName;
+  } else {
+    // if no repo was given, redirect to the homepage
+    document.location.replace("./index.html");
+  }
 };
 // fetch a list of issues with a given username/reponame
 const getRepoIssues = function (repo) {
@@ -22,7 +31,8 @@ const getRepoIssues = function (repo) {
         }
       });
     } else {
-      alert("There was a problem with your request!");
+      // if not successful, rediret to homepage
+      document.location.replace("./index.html");
     }
   });
 };
