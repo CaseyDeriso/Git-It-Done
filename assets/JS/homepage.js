@@ -49,8 +49,9 @@ const displayRepos = function (repos, searchTerm) {
     //   format repo name
     let repoName = repos[i].owner.login + "/" + repos[i].name;
     // create a container for reach repo
-    let repoEl = document.createElement("div");
+    let repoEl = document.createElement("a");
     repoEl.classList = "list-item flex-row justify-space-between align-center";
+    repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
     // create a span element to hold repository name
     let titleEl = document.createElement("span");
     titleEl.textContent = repoName;
@@ -62,9 +63,8 @@ const displayRepos = function (repos, searchTerm) {
     // check if current repo has issues or not
     if (repos[i].open_issues_count > 0) {
       statusEl.innerHTML =
-        "<i class ='fas fa-times status-icon icon-danger'></i>" +
         repos[i].open_issues_count +
-        "issues(s)";
+        "issues(s)" + "<i class ='fas fa-times status-icon icon-danger'></i>";
     } else {
       statusEl.innerHTML =
         "<i class='fas fa-check-square status-icon icon-success'></i>";
