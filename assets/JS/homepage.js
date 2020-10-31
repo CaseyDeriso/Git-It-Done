@@ -35,7 +35,7 @@ const formSubmitHandler = function (event) {
   }
 };
 
-cosnt getFeaturedRepos = function (language) {
+const getFeaturedRepos = function (language) {
   var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
   
   fetch(apiUrl)
