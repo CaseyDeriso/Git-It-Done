@@ -21,6 +21,7 @@ const userFormEl = document.getElementById("user-form");
 const nameInputEl = document.getElementById("username");
 const repoContainerEl = document.getElementById("repos-container");
 const repoSearchTerm = document.getElementById("repo-search-term");
+const languageButtonsEl = document.getElementById("language-buttons");
 
 const formSubmitHandler = function (event) {
   event.preventDefault();
@@ -90,4 +91,7 @@ const displayRepos = function (repos, searchTerm) {
   }
 };
 
+
+
 userFormEl.addEventListener("submit", formSubmitHandler);
+languageButtonsEl.addEventListener("click", buttonClickHandler);
