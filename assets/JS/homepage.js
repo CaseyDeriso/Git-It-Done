@@ -35,6 +35,20 @@ const formSubmitHandler = function (event) {
   }
 };
 
+cosnt getFeaturedRepos = function (language) {
+  var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+  
+  fetch(apiUrl)
+    .then(function(res) {
+    if (res.ok) {
+       res.json().then(function(data){
+         displayRepos(data.items, language);
+       });
+    } else {
+       alert("Error:" + res.statusText);
+    }
+  });
+};
 const displayRepos = function (repos, searchTerm) {
   // check if api returned any repos
   if (repos.length === 0) {
