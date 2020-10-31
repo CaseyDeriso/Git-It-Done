@@ -36,6 +36,15 @@ const formSubmitHandler = function (event) {
   }
 };
 
+const buttonClickHandler = function(event) {
+  let language = event.target.getAttribute("data-language")
+  if (language) {
+  getFeaturedRepos(language);
+  // clear old content
+  repoContainerEl.textContent = "";
+  }
+}
+
 const getFeaturedRepos = function (language) {
   var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
   
